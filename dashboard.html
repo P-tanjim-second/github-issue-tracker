@@ -1,11 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
+    <!-- dailyUI+tailwindcss CDN link -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- icon library CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.9.0/fonts/remixicon.css" rel="stylesheet" />
+    <!-- font CDN -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet">
+    <!-- stylesheet -->
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="shortcut icon" href="./assets/github-favicon.png" type="image/x-icon">
 </head>
-<body>
-    hi
+
+<body class="font-['Geist']">
+
+    <header>
+        <nav class="w-full shadow-md p-5 md:px-20 flex justify-between items-center">
+            <div class="flex justify-center items-center gap-1.5 md:gap-2.5  flex-col md:flex-row">
+                <div class="object-contain w-16 md:w-10"><img src="./assets/github-logo.png"></div>
+                <h3 class=" text-lg md:text-xl font-semibold text-center md:text-left">GitHub Issues Tracker</h3>
+            </div>
+            <div class="flex gap-2 md:gap-5 flex-col md:flex-row">
+                <label class="input">
+                    <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none"
+                            stroke="currentColor">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="m21 21-4.3-4.3"></path>
+                        </g>
+                    </svg>
+                    <input type="search" required placeholder="Search Issues..." />
+                </label>
+
+                <button class="btn btn-primary">+New Issues</button>
+            </div>
+        </nav>
+    </header>
+
 </body>
+
 </html>
