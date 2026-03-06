@@ -4,19 +4,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Github issue Tracker</title>
+    <title>Login-github issue tracker</title>
     <!-- dailyUI+tailwindcss CDN link -->
     <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <!-- icon library CDN -->
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.9.0/fonts/remixicon.css" rel="stylesheet" />
+    <!-- font CDN -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet">
     <!-- stylesheet -->
     <link rel="stylesheet" href="style.css">
+
+    <link rel="shortcut icon" href="./assets/github-favicon.png" type="image/x-icon">
 </head>
-<body>
 
+<body class="font-['Geist'] bg-[#F8FAFC] h-dvh flex justify-center items-center">
 
+    <div class="login-form-container bg-white w-[520px] rounded-2xl p-8 shadow-md">
+        <div class="flex flex-col justify-center items-center">
+            <img src="./assets/github-logo.png" class="mb-6">
+            <h3 class="font-bold text-[#1F2937] text-2xl">GitHub Issues Tracker</h3>
+            <p class="text-[#64748B] text-base">Sign in to manage your issues</p>
+        </div>
+        <form class="space-y-6 mb-6">
+            <div>
+                <fieldset class="fieldset">
+                    <legend class="fieldset-legend text-base text-[#1F2937]">Username</legend>
+                    <input id="name" type="text" class="input w-full rounded-lg border-[#E4E4E7]" placeholder="Enter Username"
+                        required />
+                    <p class="label font-medium text-[#4A00FF]">Default: admin</p>
+                </fieldset>
 
-    
+                <fieldset class="fieldset">
+                    <legend class="fieldset-legend text-base">Password</legend>
+                    <input id="pass" type="password" class="input w-full rounded-lg border-[#E4E4E7]" placeholder="Enter Password"
+                        required />
+                    <p class="label font-medium text-[#4A00FF]">Default: admin123</p>
+                </fieldset>
+            </div>
+
+            <button id="sign-in" class="btn btn-primary w-full rounded-lg">Sign In</button>
+        </form>
+
+        <div class="divider">OR</div>
+
+        <div class="mt-6 text-center space-y-2">
+            <p class="text-[#64748B] text-[14px]">Demo Credentials:</p>
+            <div class="bg-[#F8FAFC] rounded-xl p-6 text-[#1F2937]">
+                <p><span class="font-semibold">Username:</span> admin</p>
+                <p><span class="font-semibold">Password:</span> admin123</p>
+            </div>
+        </div>
+    </div>
+
+    <script src=".//script/login.js"></script>
 </body>
+
 </html>
