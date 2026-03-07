@@ -31,14 +31,12 @@ const loadCard = (datalist) => {
 }
 
 function tabSwitch() {
-    let activeClass = ["btn-primary"];
-    let defaultClass = ["border-[#E4E4E7]", "text-[#64748B]"]
     btns.forEach((btn) => {
         btn.addEventListener("click", () => {
             btns.forEach((btn) => {
                 btn.classList.remove(...activeClass);
                 btn.classList.add(...defaultClass);
-            })
+            });
             btn.classList.add(...activeClass);
             btn.classList.remove(...defaultClass);
             currentActiveBtn = btn.id;
@@ -134,18 +132,18 @@ function loading(status) {
 function openModal() {
     const cards = [...document.getElementsByClassName("card")];
     cards.forEach((card) => {
-    card.addEventListener("click", () => {
-        card_modal.showModal();
-        loadModalData(card.dataset.id);
+        card.addEventListener("click", () => {
+            card_modal.showModal();
+            loadModalData(card.dataset.id);
+        });
     });
-});
 }
 
 function showModalData(data) {
     const modal = `<h3 class="text-lg font-bold">${data.title}</h3>
                 <div class="flex w-full justify-between items-center">
                     <button
-                        class="btn btn-active btn-${data.status === "open"? "success":"primary"} max-h-6 sm:max-h-full max-w-16 sm:max-w-full text-[12px] sm:text-base capitalize rounded-full text-white font-normal">${data.status === "open"? "Opened":"closed"}</button>
+                        class="btn btn-active btn-${data.status === "open" ? "success" : "primary"} max-h-6 sm:max-h-full max-w-16 sm:max-w-full text-[12px] sm:text-base capitalize rounded-full text-white font-normal">${data.status === "open" ? "Opened" : "closed"}</button>
                     <span class="h-1 w-1 rounded-full bg-[#515e71]"></span>
                     <p class="text-[#64748B] text-[14px]">${data.assignee || "No one found"}</p>
                     <span class="h-1 w-1 rounded-full bg-[#515e71]"></span>
@@ -162,10 +160,10 @@ function showModalData(data) {
                     </div>
                     <div class="flex-1">
                         <p class="text-[#64748B]">Priority:</p>
-                        <p class="uppercase px-3.5 py-0.5 bg-[#${data.priority === "high"? "EF4444": data.priority === "medium"? "e5a600":"515e71"}] text-[13px] text-white rounded-full w-fit">${data.priority}</p>
+                        <p class="uppercase px-3.5 py-0.5 bg-[#${data.priority === "high" ? "EF4444" : data.priority === "medium" ? "e5a600" : "515e71"}] text-[13px] text-white rounded-full w-fit">${data.priority}</p>
                     </div>
                 </div>`;
-    loading(false);            
+    loading(false);
     modalBox.innerHTML = modal;
 }
 
@@ -174,12 +172,27 @@ const loadModalData = async (id) => {
     const data = await res.json();
     showModalData(data.data);
 }
+
+const searchCard = async (searchText) => {
+    loading(true);
+    const res = await fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${searchText.trim()}`);
+    const data = await res.json();
+    const btn = document.getElementById(`${currentActiveBtn}`);
+    btn.classList.remove(...activeClass);
+    btn.classList.add(...defaultClass);
+    currentActiveBtn = '';
+    loadCard(data.data);
+}
 const btns = document.querySelectorAll(".tab button");
 const cardContainer = document.querySelector('#card-container');
 const spinner = document.querySelector('.loading');
 const totalCard = document.querySelector("#total");
 const modalBox = document.querySelector(".modal-data");
+const searchBtn = document.querySelector("#search-btn");
+const searchBox = document.querySelector("#search-input");
 
+let activeClass = ["btn-primary"];
+let defaultClass = ["border-[#E4E4E7]", "text-[#64748B]"];
 let total = 0;
 let currentActiveBtn = 'all';
 let dateStyle = {
@@ -188,7 +201,10 @@ let dateStyle = {
     year: 'numeric'
 }
 
+searchBtn.addEventListener("click", () => {
+    searchBox.value.trim() !== '' ? searchCard(searchBox.value) : '';
 
+})
 
 
 loadData();
