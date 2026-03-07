@@ -7,8 +7,24 @@ const loadData = async () => {
 
 const loadCard = (datalist) => {
     cardContainer.innerHTML = "";
+    total = 0;
     datalist.forEach((data) => {
-        cardContainer.innerHTML += cardCheck(data);
+        if (currentActiveBtn === "closed") {
+            if (data.status === "closed") {
+                cardContainer.innerHTML += cardCheck(data);
+            }
+            totalCard.innerHTML = total;
+        }
+        else if (currentActiveBtn === "open") {
+            if (data.status === "open") {
+                cardContainer.innerHTML += cardCheck(data);
+            }
+            totalCard.innerHTML = total;
+        }
+        else {
+            cardContainer.innerHTML += cardCheck(data);
+            totalCard.innerHTML = total;
+        }
     })
     loading(false);
 }
@@ -24,6 +40,9 @@ function tabSwitch() {
             })
             btn.classList.add(...activeClass);
             btn.classList.remove(...defaultClass);
+            currentActiveBtn = btn.id;
+            cardContainer.innerHTML = "";
+            loadData();
         })
     })
 }
@@ -67,6 +86,7 @@ function labelAdd(btn_arr) {
 }
 
 function cardCheck(data) {
+    total += 1;
     const open = ['border-t-[#00A96E]', 'shadow-[#d0ffee]', 'border-[#d0ffee]'];
     const close = ['border-t-[#A855F7]', 'shadow-[#f1e3ff]', 'border-[#f1e3ff]'];
     const defaultBorder = ['border-t-[#9CA3AF]', 'shadow-[#f1e3ff]', 'border-[#f1e3ff]']
@@ -105,13 +125,16 @@ function loading(status) {
     if (status) {
         spinner.classList.remove("hidden");
     }
-    else{
+    else {
         spinner.classList.add("hidden");
     }
 }
 const btns = document.querySelectorAll(".tab button");
 const cardContainer = document.querySelector('#card-container');
 const spinner = document.querySelector('.loading');
+const totalCard = document.querySelector("#total");
+let total = 0;
+let currentActiveBtn = 'all';
 let dateStyle = {
     day: '2-digit',
     month: '2-digit',
