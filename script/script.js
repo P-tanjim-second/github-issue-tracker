@@ -7,32 +7,34 @@ const loadData = async () => {
 
 const loadCard = (datalist) => {
     cardContainer.innerHTML = "";
-    total = 0;
     datalist.forEach((data) => {
         if (currentActiveBtn === "closed") {
             if (data.status === "closed") {
                 cardContainer.innerHTML += cardCheck(data);
             }
-            totalCard.innerHTML = total;
         }
         else if (currentActiveBtn === "open") {
             if (data.status === "open") {
                 cardContainer.innerHTML += cardCheck(data);
             }
-            totalCard.innerHTML = total;
         }
         else {
             cardContainer.innerHTML += cardCheck(data);
-            totalCard.innerHTML = total;
         }
     });
     openModal();
+    totalCardNumber();
     loading(false);
+}
+
+function totalCardNumber() {
+    totalCard.innerHTML = cardContainer.children.length;
 }
 
 function tabSwitch() {
     btns.forEach((btn) => {
         btn.addEventListener("click", () => {
+            searchBox.value = "";
             btns.forEach((btn) => {
                 btn.classList.remove(...activeClass);
                 btn.classList.add(...defaultClass);
@@ -85,7 +87,6 @@ function labelAdd(btn_arr) {
 }
 
 function cardCheck(data) {
-    total += 1;
     const open = ['border-t-[#00A96E]', 'shadow-[#d0ffee]', 'border-[#d0ffee]'];
     const close = ['border-t-[#A855F7]', 'shadow-[#f1e3ff]', 'border-[#f1e3ff]'];
     const defaultBorder = ['border-t-[#9CA3AF]', 'shadow-[#f1e3ff]', 'border-[#f1e3ff]']
@@ -117,7 +118,7 @@ function cardCheck(data) {
                         <p class="text-[#64748B] text-[14px]">${new Date(data.createdAt).toLocaleString("en-US", dateStyle)}</p>
                     </div>
                 </div>`;
-    return card;
+                return card;
 }
 
 function loading(status) {
@@ -174,13 +175,17 @@ const loadModalData = async (id) => {
 }
 
 const searchCard = async (searchText) => {
-    loading(true);
+    if (currentActiveBtn !== '') {
+        loading(true);
+    }
     const res = await fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${searchText.trim()}`);
     const data = await res.json();
-    const btn = document.getElementById(`${currentActiveBtn}`);
-    btn.classList.remove(...activeClass);
-    btn.classList.add(...defaultClass);
-    currentActiveBtn = '';
+    if (currentActiveBtn !== '') {
+        const btn = document.getElementById(`${currentActiveBtn}`);
+        btn.classList.remove(...activeClass);
+        btn.classList.add(...defaultClass);
+        currentActiveBtn = '';
+    }
     loadCard(data.data);
 }
 const btns = document.querySelectorAll(".tab button");
@@ -202,7 +207,7 @@ let dateStyle = {
 }
 
 searchBtn.addEventListener("click", () => {
-    searchBox.value.trim() !== '' ? searchCard(searchBox.value) : '';
+    searchCard(searchBox.value.trim());
 
 })
 
