@@ -73,9 +73,56 @@
                     </div>
                 </div>
             </div>
-            <div id="card-container" class="bg-[#FBFBFB] p-6 rounded-b-xl grid gap-5 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"></div>
+            <div id="card-container"
+                class="bg-[#FBFBFB] p-6 rounded-b-xl grid gap-5 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            </div>
             <span class="loading loading-bars loading-xl hidden"></span>
         </section>
+
+
+        <dialog id="card_modal" class="modal modal-bottom sm:modal-middle">
+            <div class="modal-box">
+                <div class="modal-data  space-y-3">
+                    <h3 class="text-lg font-bold">Fix broken image uploads</h3>
+                    <div class="flex w-full justify-between items-center">
+                        <button
+                            class="btn btn-active btn-success max-h-6 sm:max-h-full max-w-16 sm:max-w-full text-[12px] sm:text-base capitalize rounded-full text-white font-normal">Opened</button>
+                        <span class="h-1 w-1 rounded-full bg-[#515e71]"></span>
+                        <p class="text-[#64748B] text-[14px]">Opened by Fahim Ahmed</p>
+                        <span class="h-1 w-1 rounded-full bg-[#515e71]"></span>
+                        <p class="text-[#64748B] text-[14px]">22/02/2026</p>
+                    </div>
+                    <div class="flex gap-1 my-6">
+                        <button
+                            class="btn btn-soft border border-secondary/30 btn-secondary px-2 py-0 rounded-full max-h-7 uppercase"><i
+                                class="ri-bug-line"></i> Bug</button>
+                        <button
+                            class="btn btn-soft border border-warning/30 btn-warning  px-2 py-0 rounded-full max-h-7 uppercase"><i
+                                class="ri-lifebuoy-line"></i> help wanted</button>
+                    </div>
+                    <p class="text-[#64748B] text-[14px]">The navigation menu doesn't collapse properly on mobile
+                        devices.
+                        Need to fix the responsive behavior.</p>
+                    <div class="flex p-2.5 justify-between bg-[#F8FAFC] rounded-xl">
+                        <div class="flex-1 flex flex-col justify-between">
+                            <p class="text-[#64748B]">Assignee:</p>
+                            <p class="font-semibold">Fahim Ahmed</p>
+                        </div>
+                        <div class="flex-1">
+                            <p class="text-[#64748B]">Priority:</p>
+                            <p class="uppercase px-3.5 py-0.5 bg-[#EF4444] text-[13px] text-white rounded-full w-fit">
+                                high</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="modal-action">
+                    <form method="dialog">
+                        <button class="btn btn-primary">Close</button>
+                    </form>
+                </div>
+            </div>
+        </dialog>
     </main>
 
 

@@ -25,7 +25,8 @@ const loadCard = (datalist) => {
             cardContainer.innerHTML += cardCheck(data);
             totalCard.innerHTML = total;
         }
-    })
+    });
+    openModal();
     loading(false);
 }
 
@@ -91,7 +92,7 @@ function cardCheck(data) {
     const close = ['border-t-[#A855F7]', 'shadow-[#f1e3ff]', 'border-[#f1e3ff]'];
     const defaultBorder = ['border-t-[#9CA3AF]', 'shadow-[#f1e3ff]', 'border-[#f1e3ff]']
 
-    const card = `<div
+    const card = `<div data-id="${data.id}"
                     class="card cursor-pointer space-y-5 pb-3 shadow-sm border border-t-4 ${data.status === "open" ? open.join(' ') : data.status === 'closed' ? close.join(" ") : defaultBorder.join(" ")} rounded-lg">
                     <div class="p-4 mb-0 border-b-2 border-gray-200 space-y-3 min-h-[75%]">
                         <div class="flex justify-between items-center">
@@ -115,7 +116,7 @@ function cardCheck(data) {
 
                     <div class="space-y-1.5 p-4">
                         <p class="text-[#64748B] text-[14px]">#1 by ${data.author}</p>
-                        <p class="text-[#64748B] text-[14px]">${new Date(data.createdAt).toLocaleString("en-GB", dateStyle)}</p>
+                        <p class="text-[#64748B] text-[14px]">${new Date(data.createdAt).toLocaleString("en-US", dateStyle)}</p>
                     </div>
                 </div>`;
     return card;
@@ -129,10 +130,56 @@ function loading(status) {
         spinner.classList.add("hidden");
     }
 }
+
+function openModal() {
+    const cards = [...document.getElementsByClassName("card")];
+    cards.forEach((card) => {
+    card.addEventListener("click", () => {
+        card_modal.showModal();
+        loadModalData(card.dataset.id);
+    });
+});
+}
+
+function showModalData(data) {
+    const modal = `<h3 class="text-lg font-bold">${data.title}</h3>
+                <div class="flex w-full justify-between items-center">
+                    <button
+                        class="btn btn-active btn-${data.status === "open"? "success":"primary"} max-h-6 sm:max-h-full max-w-16 sm:max-w-full text-[12px] sm:text-base capitalize rounded-full text-white font-normal">${data.status === "open"? "Opened":"closed"}</button>
+                    <span class="h-1 w-1 rounded-full bg-[#515e71]"></span>
+                    <p class="text-[#64748B] text-[14px]">${data.assignee || "No one found"}</p>
+                    <span class="h-1 w-1 rounded-full bg-[#515e71]"></span>
+                    <p class="text-[#64748B] text-[14px]">${new Date(data.createdAt).toLocaleString('en-US', dateStyle)}</p>
+                </div>
+                <div class="flex gap-1 my-6">
+                     ${labelAdd(data.labels).join('')}
+                </div>
+                <p class="text-[#64748B] text-[14px]">${data.description}</p>
+                <div class="flex p-2.5 justify-between bg-[#F8FAFC] rounded-xl">
+                    <div class="flex-1 flex flex-col justify-between">
+                        <p class="text-[#64748B]">Assignee:</p>
+                        <p class="font-semibold">${data.assignee || "No one found"}</p>
+                    </div>
+                    <div class="flex-1">
+                        <p class="text-[#64748B]">Priority:</p>
+                        <p class="uppercase px-3.5 py-0.5 bg-[#${data.priority === "high"? "EF4444": data.priority === "medium"? "e5a600":"515e71"}] text-[13px] text-white rounded-full w-fit">${data.priority}</p>
+                    </div>
+                </div>`;
+    loading(false);            
+    modalBox.innerHTML = modal;
+}
+
+const loadModalData = async (id) => {
+    const res = await fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`);
+    const data = await res.json();
+    showModalData(data.data);
+}
 const btns = document.querySelectorAll(".tab button");
 const cardContainer = document.querySelector('#card-container');
 const spinner = document.querySelector('.loading');
 const totalCard = document.querySelector("#total");
+const modalBox = document.querySelector(".modal-data");
+
 let total = 0;
 let currentActiveBtn = 'all';
 let dateStyle = {
@@ -140,6 +187,9 @@ let dateStyle = {
     month: '2-digit',
     year: 'numeric'
 }
+
+
+
 
 loadData();
 tabSwitch();
