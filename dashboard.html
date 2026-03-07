@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>GitHub Issues Tracker</title>
     <!-- dailyUI+tailwindcss CDN link -->
     <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
@@ -20,13 +20,13 @@
     <link rel="shortcut icon" href="./assets/github-favicon.png" type="image/x-icon">
 </head>
 
-<body class="font-['Geist']">
+<body class="font-['Geist'] bg-[#F8FAFC] min-h-dvh">
 
     <header>
         <nav class="w-full shadow-md p-5 md:px-20 flex justify-between items-center">
             <div class="flex justify-center items-center gap-1.5 md:gap-2.5  flex-col md:flex-row">
                 <div class="object-contain w-16 md:w-10"><img src="./assets/github-logo.png"></div>
-                <h3 class=" text-lg md:text-xl font-semibold text-center md:text-left">GitHub Issues Tracker</h3>
+                <h3 class=" text-base md:text-xl font-semibold text-center md:text-left">GitHub Issues Tracker</h3>
             </div>
             <div class="flex gap-2 md:gap-5 flex-col md:flex-row">
                 <label class="input">
@@ -45,6 +45,74 @@
         </nav>
     </header>
 
+    <main class="w-11/12 mx-auto mt-14 space-y-4">
+        <section class="tab flex justify-start items-center gap-2 bg-white p-5 rounded-lg shadow-sm">
+            <button class="btn btn-primary min-w-32">All</button>
+            <button class="btn border-[#E4E4E7] text-[#64748B] min-w-32">Open</button>
+            <button class="btn border-[#E4E4E7] text-[#64748B] min-w-32">Closed</button>
+        </section>
+
+        <section class="rounded-xl shadow-sm">
+            <div class="bg-white border-b border-b-[#e5e5e5] flex justify-between items-center p-6 rounded-t-xl">
+                <div class="flex gap-1.5 items-center">
+                    <div class="bg-[#ECE4FF] flex justify-center items-center p-2 rounded-full w-fit h-fit"><img
+                            src="./assets/Aperture.png"></div>
+                    <div>
+                        <h5 class="font-bold">50 Issues</h5>
+                        <p class="text-[14px] text-[#64748B]">Track and manage your project issues</p>
+                    </div>
+                </div>
+                <div class="flex flex-col md:flex-row gap-4">
+                    <div class="flex justify-center items-center gap-1.5">
+                        <div aria-label="status" class="status status-accent"></div>
+                        <p>Open</p>
+                    </div>
+                    <div class="flex justify-center items-center gap-1.5">
+                        <div aria-label="status" class="status status-primary"></div>
+                        <p>Closed </p>
+                    </div>
+                </div>
+            </div>
+            <div id="card-container" class="bg-[#FBFBFB] p-6 rounded-b-xl grid gap-5 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                <!-- <div
+                    class="card space-y-5 border border-t-4 border-t-[#A855F7] shadow-sm shadow-[#f1e3ff] border-[#f1e3ff] rounded-lg">
+                    <div class="p-4 mb-0 border-b-2 space-y-3 border-gray-200 min-h-[75%]">
+                        <div class="flex justify-between items-center">
+                            <div class="status-img">
+                                <img src="./assets/Closed-Status.png">
+                            </div>
+                            <button id="status"
+                                class="btn btn-soft btn-secondary uppercase px-5 leading-none max-h-7 rounded-full">
+                                high
+                            </button>
+                        </div>
+
+                        <div class="flex flex-col justify-around h-[80%]">
+                            <h4 class="font-semibold text-xl"> navigation menu on mobile devices</h4>
+                            <p class="text-[14px] text-[#64748B]">The navigation menu doesn't collapse properly on
+                                mobile devices...</p>
+                            <div class="flex gap-1">
+                                <button
+                                    class="btn btn-soft border border-secondary/30 btn-secondary px-2 py-0 rounded-full max-h-7 uppercase"><i
+                                        class="ri-bug-line"></i> Bug</button>
+                                <button
+                                    class="btn btn-soft border border-warning/30 btn-warning  px-2 py-0 rounded-full max-h-7 uppercase"><i
+                                        class="ri-lifebuoy-line"></i> help wanted</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-1.5 p-4">
+                        <p class="text-[#64748B] text-[14px]">#1 by john_doe</p>
+                        <p class="text-[#64748B] text-[14px]">1/15/2025</p>
+                    </div>
+                </div> -->
+            </div>
+        </section>
+    </main>
+
+
+    <script src="./script/script.js"></script>
 </body>
 
 </html>
