@@ -1,4 +1,5 @@
 const loadData = async () => {
+    loading(true);
     const res = await fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues#");
     const data = await res.json();
     loadCard(data.data);
@@ -9,6 +10,7 @@ const loadCard = (datalist) => {
     datalist.forEach((data) => {
         cardContainer.innerHTML += cardCheck(data);
     })
+    loading(false);
 }
 
 function tabSwitch() {
@@ -70,7 +72,7 @@ function cardCheck(data) {
     const defaultBorder = ['border-t-[#9CA3AF]', 'shadow-[#f1e3ff]', 'border-[#f1e3ff]']
 
     const card = `<div
-                    class="card space-y-5 pb-3 shadow-sm border border-t-4 ${data.status === "open" ? open.join(' ') : data.status === 'closed' ? close.join(" ") : defaultBorder.join(" ")} rounded-lg">
+                    class="card cursor-pointer space-y-5 pb-3 shadow-sm border border-t-4 ${data.status === "open" ? open.join(' ') : data.status === 'closed' ? close.join(" ") : defaultBorder.join(" ")} rounded-lg">
                     <div class="p-4 mb-0 border-b-2 border-gray-200 space-y-3 min-h-[75%]">
                         <div class="flex justify-between items-center">
                             <div class="status-img">
@@ -99,8 +101,17 @@ function cardCheck(data) {
     return card;
 }
 
+function loading(status) {
+    if (status) {
+        spinner.classList.remove("hidden");
+    }
+    else{
+        spinner.classList.add("hidden");
+    }
+}
 const btns = document.querySelectorAll(".tab button");
 const cardContainer = document.querySelector('#card-container');
+const spinner = document.querySelector('.loading');
 let dateStyle = {
     day: '2-digit',
     month: '2-digit',
